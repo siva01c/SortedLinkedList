@@ -7,7 +7,7 @@
 .env
 .env.local
 .env.*.local
-.ddev
+.ddev/
 
 # IDE specific files
 .history/
