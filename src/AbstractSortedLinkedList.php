@@ -8,20 +8,45 @@ use SortedLinkedList\LinkedListItem;
 abstract class AbstractSortedLinkedList implements SortedLinkedListInterface
 {
     protected int $count = 0;
-    /** @var array<int, LinkedListItem> */
+    /** 
+     * Array of list items
+     * @var array<int, LinkedListItem> */
     protected array $values = [];
+
+    /**
+     * The type of the sorted list
+     * @var string
+     */
     protected string $type;
 
+    /**
+     * Compare two values and return:
+     * negative if $a < $b
+     * zero if $a == $b
+     * positive if $a > $b
+     * @param mixed $a
+     * @param mixed $b
+     */
+    abstract protected function compare(mixed $a, mixed $b): int;
+ 
     /**
      * @param mixed $value
      */
     abstract protected function validateType($value): bool;
 
+    /**
+     * Get the number of items in the list
+     * @return int
+     */
     public function getCount(): int
     {
         return $this->count;
     }
 
+    /**
+     * Get the type of the sorted list
+     * @return string
+     */
     public function getType(): string
     {
         return $this->type;
@@ -48,6 +73,10 @@ abstract class AbstractSortedLinkedList implements SortedLinkedListInterface
         return $result;
     }
 
+    /**
+     * Add a value to the sorted list
+     * @param mixed $value The value to add
+     */
     public function addToList($value): void
     {
         if (!$this->validateType($value)) {
@@ -59,7 +88,7 @@ abstract class AbstractSortedLinkedList implements SortedLinkedListInterface
         } else {
             $inserted = false;
             foreach ($this->values as $key => $item) {
-                if (strcmp((string)$item->value, (string)$newItem->value) > 0) {
+                if ($this->compare($item->value, $newItem->value) > 0) {
                     array_splice($this->values, $key, 0, [$newItem]);
                     $inserted = true;
                     break;
@@ -72,6 +101,10 @@ abstract class AbstractSortedLinkedList implements SortedLinkedListInterface
         $this->count++;
     }
 
+    /**
+     * Remove a value from the sorted list
+     * @param mixed $value The value to remove
+     */
     public function removeFromList($value): void
     {
         foreach ($this->values as $key => $item) {

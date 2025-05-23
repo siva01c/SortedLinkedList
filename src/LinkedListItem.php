@@ -13,6 +13,7 @@ class LinkedListItem
 
     /**
      * List item constructor
+     * 
      * @param mixed $value
      */
     public function __construct(mixed $value)
