@@ -1,0 +1,15 @@
+
+# Composer
+.phpunit.result.cache
+/vendor/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.ddev
+
+# IDE specific files
+.history/
+.idea/
+.vscode/
